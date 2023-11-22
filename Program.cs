@@ -4,10 +4,15 @@ global using Microsoft.AspNetCore.Mvc;
 global using dotnet_rpg.Services.CharacterService;
 global using dotnet_rpg.Dtos.Character;
 global using AutoMapper;
+global using Microsoft.EntityFrameworkCore;
+global using dotnet_rpg.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+string? strConnection = builder.Configuration.GetConnectionString("ConnectionStrings:DefaultConn");
+builder.Services.AddDbContext<Context>(options => options.UseSqlServer(strConnection));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
